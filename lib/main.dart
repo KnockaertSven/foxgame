@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 import 'package:flame/palette.dart';
@@ -28,10 +30,12 @@ class Game extends BaseGame {
   var _accel = 0.0;
   var _velocity = 0.0;
 
-  var foreground = [ForegroundElement(200.0, 100.0), ForegroundElement(300.0, 200.0)];
+  var _foreground = [];
+  var _background = [];
 
   Game() {
     _start();
+    _loadJSON();
   }
 
   _setInput(x, y) {
@@ -51,6 +55,13 @@ class Game extends BaseGame {
         TapGestureRecognizer()..onTapCancel = (() => _forgetInput()));
   }
 
+  _loadJSON() async {
+    String data = await rootBundle.loadString("assets/level.json");
+    json.decode(data).forEach((el) {
+      if(el["isForeground"]) _foreground.add(GameEl(el["x"], _height, el["width"], el["height"]));
+    });
+  }
+
   _start() async {
     var size = await Flame.util.initialDimensions();
     _width = size.width;
@@ -68,10 +79,10 @@ class Game extends BaseGame {
   @override
   void render(canvas) {
     super.render(canvas);
-    var rect = Rect.fromLTWH(_width/2 - 20, _height - 80, 40, 40);
+    var rect = Rect.fromLTWH(_width / 2 - 20, _height - 80, 40, 40);
     canvas.drawRect(rect, BasicPalette.white.paint);
 
-    foreground.forEach((foregroundElement){
+    _foreground.forEach((foregroundElement) {
       foregroundElement.render(canvas);
     });
   }
@@ -82,7 +93,7 @@ class Game extends BaseGame {
 
     _velocity += _accel;
 
-    foreground.forEach((foregroundElement){
+    _foreground.forEach((foregroundElement) {
       foregroundElement.update(-_velocity);
     });
 
@@ -91,12 +102,14 @@ class Game extends BaseGame {
   }
 }
 
-class ForegroundElement {
-  double _x, _y;
+class GameEl {
+  double _x, _y, _w, _h;
   var green = new Paint()..color = const Color(0xFF00FF00);
-  ForegroundElement(x, y) {
+  GameEl(x, y, w, h) {
     _x = x;
     _y = y;
+    _w = w;
+    _h = h;
   }
 
   update(x) {
@@ -104,7 +117,7 @@ class ForegroundElement {
   }
 
   render(Canvas canvas) {
-    var rect = Rect.fromLTWH(_x + 60, _y - 20, 40, 40);
+    var rect = Rect.fromLTWH(_x, _y - _h, _w, _h);
     canvas.drawRect(rect, green);
   }
 }

@@ -1,0 +1,11 @@
+[
+  {
+    "x": 200.0,
+    "width": 40.0,
+    "height": 200.0,
+    "image": false,
+    "speed": 1,
+    "isForeground": true,
+    "isBackground": false
+  }
+]
