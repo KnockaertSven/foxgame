@@ -1,11 +1,43 @@
-[
-  {
-    "x": 200.0,
+{
+  "tutorial": {
+    "text": "Try to get to the chicken. But don't get caught by the farmer!"
+  },
+  "protagonist": {
     "width": 40.0,
-    "height": 200.0,
+    "height": 40.0,
     "image": false,
-    "speed": 1,
-    "isForeground": true,
-    "isBackground": false
-  }
-]
+    "color": "0xFFFFFFFF"
+  },
+  "gameElements": [
+    {
+      "name": "tree",
+      "x": 200.0,
+      "width": 40.0,
+      "height": 200.0,
+      "image": false,
+      "speed": 2.0,
+      "isForeground": true,
+      "color": "0xFF00FFFF"
+    },
+    {
+      "name": "bg",
+      "x": 200.0,
+      "width": 40.0,
+      "height": 200.0,
+      "image": false,
+      "speed": 1.0,
+      "isForeground": false,
+      "color": "0xFF00FF00"
+    },
+    {
+      "name": "bg",
+      "x": 400.0,
+      "width": 100.0,
+      "height": 150.0,
+      "image": false,
+      "speed": 1.0,
+      "isForeground": false,
+      "color": "0xFF00FF00"
+    }
+  ]
+}

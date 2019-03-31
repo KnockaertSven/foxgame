@@ -1,8 +1,10 @@
 import 'dart:convert';
 
+import 'package:flame/anchor.dart';
+import 'package:flame/components/text_component.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
-import 'package:flame/palette.dart';
+import 'package:flame/text_config.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,7 +16,8 @@ import 'package:flutter/services.dart';
 // remove "new"
 // remove types in arguments etc
 
-// explain myself
+// explain myself:
+// I used flame because I think it's a fair use case
 
 void main() {
   SystemChrome.setEnabledSystemUIOverlays([]);
@@ -32,10 +35,10 @@ class Game extends BaseGame {
 
   var _foreground = [];
   var _background = [];
+  var _protagonist;
 
   Game() {
     _start();
-    _loadJSON();
   }
 
   _setInput(x, y) {
@@ -55,17 +58,33 @@ class Game extends BaseGame {
         TapGestureRecognizer()..onTapCancel = (() => _forgetInput()));
   }
 
-  _loadJSON() async {
+  _loadLevel() async {
     String data = await rootBundle.loadString("assets/level.json");
-    json.decode(data).forEach((el) {
-      if(el["isForeground"]) _foreground.add(GameEl(el["x"], _height, el["width"], el["height"]));
+    var _resultSet = json.decode(data);
+
+    _resultSet["gameElements"].forEach((el) {
+      var newEl = GameEl(el["x"], _height, el["width"], el["height"],
+          el["speed"], el["color"]);
+      el["isForeground"] ? _foreground.add(newEl) : _background.add(newEl);
     });
+
+    var p = _resultSet["protagonist"];
+    _protagonist = GameEl(_width / 2 - p["width"] / 2, _height, p["width"],
+        p["height"], p["speed"], p["color"]);
+
+    TextConfig regular = TextConfig(color: Color(0xffffffff));
+
+    add(TextComponent(_resultSet["tutorial"]["text"], config: regular)
+      ..anchor = Anchor.topCenter
+      ..x = _width / 2
+      ..y = 50);
   }
 
   _start() async {
     var size = await Flame.util.initialDimensions();
     _width = size.width;
     _height = size.height;
+    _loadLevel();
     _addEventListeners();
   }
 
@@ -79,11 +98,15 @@ class Game extends BaseGame {
   @override
   void render(canvas) {
     super.render(canvas);
-    var rect = Rect.fromLTWH(_width / 2 - 20, _height - 80, 40, 40);
-    canvas.drawRect(rect, BasicPalette.white.paint);
 
-    _foreground.forEach((foregroundElement) {
-      foregroundElement.render(canvas);
+    _background.forEach((el) {
+      el.render(canvas);
+    });
+
+    _protagonist?.render(canvas);
+
+    _foreground.forEach((el) {
+      el.render(canvas);
     });
   }
 
@@ -93,8 +116,11 @@ class Game extends BaseGame {
 
     _velocity += _accel;
 
-    _foreground.forEach((foregroundElement) {
-      foregroundElement.update(-_velocity);
+    _background.forEach((el) {
+      el.update(-_velocity);
+    });
+    _foreground.forEach((el) {
+      el.update(-_velocity);
     });
 
     _velocity *= 0.9;
@@ -103,21 +129,23 @@ class Game extends BaseGame {
 }
 
 class GameEl {
-  double _x, _y, _w, _h;
-  var green = new Paint()..color = const Color(0xFF00FF00);
-  GameEl(x, y, w, h) {
+  double _x, _y, _w, _h, _speed;
+  var _color;
+  GameEl(x, y, w, h, speed, color) {
     _x = x;
     _y = y;
     _w = w;
     _h = h;
+    _speed = speed;
+    _color = Paint()..color = Color(int.parse(color));
   }
 
   update(x) {
-    _x += x;
+    _x += x * _speed;
   }
 
   render(Canvas canvas) {
     var rect = Rect.fromLTWH(_x, _y - _h, _w, _h);
-    canvas.drawRect(rect, green);
+    canvas.drawRect(rect, _color);
   }
 }
