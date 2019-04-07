@@ -2,47 +2,105 @@
   "tutorial": {
     "text": "Try to get to the chicken. But don't get caught by the farmer!"
   },
-  "protagonist": {
-    "width": 100.0,
-    "height": 40.0,
-    "image": false,
-    "color": "0xFF000000"
-  },
   "chicken": {
     "x": 2000.0,
     "width": 40.0,
     "height": 40.0,
-    "image": false,
-    "speed": 1.0,
-    "color": "0xFFFF0000"
+    "speed": 1.0
   },
   "gameElements": [
     {
+      "x": 0,
+      "width": 2980.0,
+      "height": 1440.0,
+      "image": "background.jpg",
+      "speed": 0,
+      "isForeground": false
+    },
+
+    {
       "x": 200.0,
-      "width": 40.0,
-      "height": 200.0,
-      "image": false,
-      "speed": 1.5,
-      "isForeground": true,
-      "color": "0xFF00FFFF"
+      "width": 694.0,
+      "height": 1177.0,
+      "image": "tree2.png",
+      "speed": 0.8,
+      "isForeground": false
     },
     {
-      "x": 150.0,
-      "width": 40.0,
-      "height": 200.0,
-      "image": false,
-      "speed": 1.0,
-      "isForeground": false,
-      "color": "0xFF00FF00"
+      "x": 1200.0,
+      "width": 694.0,
+      "height": 1177.0,
+      "image": "tree2.png",
+      "speed": 0.8,
+      "isForeground": false
     },
+    {
+      "x": 2200.0,
+      "width": 694.0,
+      "height": 1177.0,
+      "image": "tree2.png",
+      "speed": 0.8,
+      "isForeground": false
+    },
+
     {
       "x": 400.0,
-      "width": 100.0,
-      "height": 150.0,
-      "image": false,
+      "width": 797.0,
+      "height": 672.0,
+      "image": "bush1.png",
       "speed": 1.0,
-      "isForeground": false,
-      "color": "0xFF00FF00"
+      "isForeground": false
+    },
+    {
+      "x": 500.0,
+      "width": 1222.0,
+      "height": 1513.0,
+      "image": "tree1.png",
+      "speed": 1.0,
+      "isForeground": false
+    },
+
+    {
+      "x": 1000.0,
+      "width": 654.0,
+      "height": 1481.0,
+      "image": "tree4.png",
+      "speed": 1.0,
+      "isForeground": false
+    },
+    {
+      "x": 1000.0,
+      "width": 857.0,
+      "height": 592.0,
+      "image": "bush2.png",
+      "speed": 1.0,
+      "isForeground": false
+    },
+
+    {
+      "x": 1300.0,
+      "width": 283.0,
+      "height": 1481.0,
+      "image": "tree3.png",
+      "speed": 1.0,
+      "isForeground": false
+    },
+    
+    {
+      "x": 1400.0,
+      "width": 787.0,
+      "height": 538.0,
+      "image": "bush3.png",
+      "speed": 1.0,
+      "isForeground": false
+    },
+    {
+      "x": 1500.0,
+      "width": 476.0,
+      "height": 1481.0,
+      "image": "tree5.png",
+      "speed": 1.0,
+      "isForeground": false
     }
   ]
 }
