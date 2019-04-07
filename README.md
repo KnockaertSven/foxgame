@@ -3,6 +3,7 @@
 ## TL;DR:
 
 Made a game in which you are a fox that wants to get to a chicken. Beware the farmer. Tap to move.
+Run on Android. It could be that the app is completely out of scale. Fix: rebuild the app again.
 
 ## About me
 
@@ -18,7 +19,8 @@ The concept: you are a fox. You want to get to the chicken. Try not to get caugh
 
 ## Technicalities
 
-I've ran the app only on Android smartphones (namely Oneplus 5T and a Huawei). They might work on iOS, but I have no idea. So, I'd recommend it to be ran on an Android device! There are no restrictions otherwise.
+I've ran the app only on Android smartphones (mainly Oneplus). They might work on iOS, but I have no idea. So, I'd recommend it to be ran on an Android device!
+Another note: it could be that the app is completely out of scale. You'd need to rebuild the app after the first time. I did not have the time to circumvent this issue.
 
 A few points I'd like to make: I...
 * used the `Flame` package that can be found on pub.dartlang.org because, in my opinion, it's the best package to make Flutter games out there

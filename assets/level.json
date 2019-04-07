@@ -20,6 +20,14 @@
     },
     {
       "x": 100.0,
+      "width": 476.0,
+      "height": 1481.0,
+      "image": "tree5.png",
+      "speed": 1.0,
+      "isForeground": true
+    },
+    {
+      "x": 150.0,
       "width": 432.0,
       "height": 452.0,
       "image": "leaf1.png",
@@ -136,6 +144,14 @@
       "isForeground": false
     },
 
+    {
+      "x": 1700.0,
+      "width": 654.0,
+      "height": 1481.0,
+      "image": "tree4.png",
+      "speed": 1.0,
+      "isForeground": false
+    },
     {
       "x": 2100.0,
       "width": 797.0,
