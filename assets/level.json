@@ -2,11 +2,12 @@
   "tutorial": {
     "text": "Try to get to the chicken. But don't get caught by the farmer!"
   },
-  "chicken": {
-    "x": 2000.0,
-    "width": 40.0,
-    "height": 40.0,
-    "speed": 1.0
+  "farmer": {
+    "x": [1000, 1500, 2000],
+    "width": 508.0,
+    "height": 553.0,
+    "image": "farmer.png",
+    "speed": 1
   },
   "gameElements": [
     {
@@ -16,6 +17,38 @@
       "image": "background.jpg",
       "speed": 0,
       "isForeground": false
+    },
+    {
+      "x": 100.0,
+      "width": 432.0,
+      "height": 452.0,
+      "image": "leaf1.png",
+      "speed": 1,
+      "isForeground": true
+    },
+    {
+      "x": 550.0,
+      "width": 598.0,
+      "height": 561.0,
+      "image": "leaf2.png",
+      "speed": 1,
+      "isForeground": true
+    },
+    {
+      "x": 1700.0,
+      "width": 432.0,
+      "height": 452.0,
+      "image": "leaf1.png",
+      "speed": 1,
+      "isForeground": true
+    },
+    {
+      "x": 2350.0,
+      "width": 598.0,
+      "height": 561.0,
+      "image": "leaf2.png",
+      "speed": 1,
+      "isForeground": true
     },
 
     {
@@ -99,6 +132,50 @@
       "width": 476.0,
       "height": 1481.0,
       "image": "tree5.png",
+      "speed": 1.0,
+      "isForeground": false
+    },
+
+    {
+      "x": 2100.0,
+      "width": 797.0,
+      "height": 672.0,
+      "image": "bush1.png",
+      "speed": 1.0,
+      "isForeground": false
+    },
+    {
+      "x": 2200.0,
+      "width": 283.0,
+      "height": 1481.0,
+      "image": "tree3.png",
+      "speed": 1.0,
+      "isForeground": false
+    },
+    {
+      "x": 2500.0,
+      "width": 857.0,
+      "height": 592.0,
+      "image": "bush2.png",
+      "speed": 1.0,
+      "isForeground": false
+    },
+
+
+
+    {
+      "x": 2900.0,
+      "width": 500.0,
+      "height": 500.0,
+      "image": "rayons.png",
+      "speed": 1.0,
+      "isForeground": false
+    },
+    {
+      "x": 2900.0,
+      "width": 362.0,
+      "height": 410.0,
+      "image": "chicken.png",
       "speed": 1.0,
       "isForeground": false
     }

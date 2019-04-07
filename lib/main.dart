@@ -11,16 +11,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-// todo:
-// use .. to chain method calls instead of using the word
-// use ?? and  ? :  where I can
-// replace types with var where possible
-// remove "new"
-// remove types in arguments etc
-
-// explain myself:
-// I used flame because I think it's a fair use case
-
 void main() {
   SystemChrome.setEnabledSystemUIOverlays([]);
   SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft])
@@ -32,24 +22,26 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
     return new MaterialApp(
       home: Game().widget,
       debugShowCheckedModeBanner: false,
     );
   }
-} 
+}
 
 class Game extends BaseGame {
   var _width = 100.0;
   var _height = 100.0;
   var _velocity = 0.0;
   var _scale = 1.0;
-  var _x = 0.0;
+  var _x = 0;
 
   var _foreground = [];
   var _background = [];
   var _floor;
+  var _farmerShown = false;
+  var _farmer;
+  var _farmerPositions = [];
   var _color = Paint()..color = Color(int.parse("0xFF5B4510"));
   var _walking = false;
   var _canMove = true;
@@ -93,6 +85,17 @@ class Game extends BaseGame {
 
     var data = await rootBundle.loadString("assets/level.json");
     var resultSet = json.decode(data);
+
+    var f = resultSet["farmer"];
+    _farmerPositions = f["x"];
+    _farmer = GameEl(
+      _farmerPositions[0],
+      _height / 2 - ((f["height"]*_scale) / 2),
+      f["width"] * _scale,
+      f["height"] * _scale,
+      f["speed"],
+      f["image"],
+    );
 
     resultSet["gameElements"].forEach((el) {
       var newEl = GameEl(
@@ -139,28 +142,36 @@ class Game extends BaseGame {
     _height = size.height;
   }
 
+  _renderProtagonist(canvas) {
+    if (_anim != null) {
+      _anim.currentFrame.sprite.renderPosition(
+          canvas,
+          Position((_width / 2) - 744 * _scale * 1.4,
+              (_height) - 351 * _scale * 1.4),
+          Position(744 * _scale * 1.4, 351 * _scale * 1.4));
+    }
+  }
+
   @override
   void render(canvas) {
     super.render(canvas);
     _background.forEach((el) {
       el.render(canvas);
     });
+    _farmer?.render(canvas);
     if (_floor != null) canvas.drawRect(_floor, _color);
+    _renderProtagonist(canvas);
     _foreground.forEach((el) {
       el.render(canvas);
     });
-    if (_anim != null)
-      _anim.currentFrame.sprite.renderPosition(
-        canvas,
-        Position(
-          (_width / 2) - 744 * _scale * 1.4,
-          (_height) - 351 * _scale * 1.4,
-        ),
-        Position(
-          744 * _scale * 1.4,
-          351 * _scale * 1.4,
-        ),
-      );
+  }
+
+  _handleShowFarmer() {}
+
+  _handleFarmerChecks() {
+    if (_farmer == null) return;
+    if (!_walking) return;
+    if (_farmerShown && _walking) _restart();
   }
 
   @override
@@ -174,9 +185,13 @@ class Game extends BaseGame {
       el.update(_velocity);
     });
 
+    _farmer?.update(_velocity);
+
     if (_walking) _anim?.update(t);
     if (_walking) _x += 5;
-    if (_x > 2000) _restart();
+    var limit = 3000 - _width / 2;
+    if (_x > limit) _restart();
+    _handleFarmerChecks();
   }
 }
 
